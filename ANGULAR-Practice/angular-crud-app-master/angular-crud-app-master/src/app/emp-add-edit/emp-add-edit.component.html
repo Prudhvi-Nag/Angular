@@ -1,0 +1,156 @@
+<div mat-dialog-title>
+    <h1>Employee Form</h1>
+</div>
+<form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>First name</mat-label>
+                    <input matInput type="text" name="name" placeholder="First Name" formControlName="firstName" required minlength="4" maxlength="12">
+                </mat-form-field>
+                <div class="error" *ngIf="empForm.controls['firstName'].invalid && empForm.controls['firstName'].touched" >
+                <div *ngIf="empForm.controls['firstName'].errors?.['required']">
+                   required
+                  </div>
+                  <div *ngIf="empForm.controls['firstName'].errors?.['minlength']">
+                    at least 4 chars long.
+                   </div>   
+                   <div *ngIf="empForm.controls['firstName'].errors?.['maxlength']">
+                    must  12 chars long
+              
+                   </div>                  
+                </div>
+                 
+            </div>
+          
+
+
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last Name" formControlName="lastName" required  minlength="4" maxlength="12">
+                   
+                </mat-form-field>
+                <div class="error" *ngIf="empForm.controls['lastName'].invalid &&  empForm.controls['lastName'].touched" >
+                    <div class="error" *ngIf="empForm.controls['lastName'].errors?.['required']">
+                       required
+                      </div>
+                      <div class="error" *ngIf="empForm.controls['lastName'].errors?.['minlength']">
+                         at least 4 chars long.
+                       </div>  
+                       <div class="error" *ngIf="empForm.controls['lastName'].errors?.['maxlength']">
+                        must  12 chars long
+                       </div>                   
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+           <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="dumy@gmail.com" formControlName="email" required >
+            </mat-form-field>
+            <div class="error" *ngIf="empForm.controls['email'].invalid &&  empForm.controls['email'].touched" >
+                <div *ngIf="empForm.controls['email'].errors?.['required']">
+                   required
+                  </div> 
+                  <div *ngIf="empForm.controls['email'].errors?.['email']">
+                    input does to email pattren
+                   </div>             
+                </div>
+           </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Date of birth</mat-label>
+    
+                    <input matInput [matDatepicker]="picker" formControlName="dob" required>
+                    <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                   
+                </mat-form-field>
+                <div class="error" *ngIf="empForm.controls['dob'].invalid &&  empForm.controls['dob'].touched" >
+                    <div *ngIf="empForm.controls['dob'].errors?.['required']">
+                       required
+                      </div>              
+                    </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <mat-radio-group aria-label="Select an option" formControlName="gender" required>
+                <mat-label><b>Gender</b></mat-label>
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button value="others">Others</mat-radio-button>
+                <!-- <mat-error *ngIf="empForm.controls['gender'].invalid "  >
+                    required*
+                </mat-error> -->
+            </mat-radio-group>
+            
+        </div>
+
+        <div class="row">
+           <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Education</mat-label>
+                <mat-select formControlName="education" required>
+                    <mat-option *ngFor="let val of education" [value]="val">{{val}}
+                    </mat-option>
+                   
+                </mat-select>
+            </mat-form-field>
+            <div class="error" *ngIf="empForm.controls['education'].invalid &&  empForm.controls['education'].touched" >
+                <div *ngIf="empForm.controls['education'].errors?.['required']">
+                   required
+                  </div>              
+                </div>
+           </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Company</mat-label>
+                    <input matInput placeholder="Google" formControlName="company" required>
+                </mat-form-field>
+                <div class="error" *ngIf="empForm.controls['company'].invalid &&  empForm.controls['company'].touched" >
+                    <div *ngIf="empForm.controls['company'].errors?.['required']">
+                       required
+                      </div>              
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Experience</mat-label>
+                    <input matInput placeholder="ex.2" type="number" formControlName="experience" required>
+                </mat-form-field>
+                <div class="error" *ngIf="empForm.controls['experience'].invalid &&  empForm.controls['experience'].touched" >
+                    <div *ngIf="empForm.controls['experience'].errors?.['required']">
+                       required
+                      </div>              
+                    </div>
+               
+               </div>
+            
+           <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Package</mat-label>
+                <input matInput placeholder="7 LPA" type="number" formControlName="package" required>
+                <!-- <mat-hint>In rupees</mat-hint> -->
+               
+            </mat-form-field>
+            <div class="error" *ngIf="empForm.controls['package'].invalid &&  empForm.controls['package'].touched" >
+                <div *ngIf="empForm.controls['package'].errors?.['required']">
+                   required
+                  </div>              
+            </div>
+           </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">{{data ? 'Update': 'Save'}}</button>
+    </div>
+</form>
